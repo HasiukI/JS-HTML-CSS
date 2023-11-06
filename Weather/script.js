@@ -19,17 +19,43 @@ function GetWeather(){
         .then(resp => {
             return resp.json();
         }).then(data=> {
-            push(data);
+            push_item(data);
         })
         .catch(error=>error);
 }
 let data= GetWeather();
 
 
-function push(data){
+function push_item(data){
     const mainObject= data;
-    console.log(mainObject);
-   
+    // console.log(mainObject);
+    const days_card =document.querySelectorAll('.days');
+    const min_card =document.querySelectorAll('.min');
+    const max_card =document.querySelectorAll('.max');
+    let card_count=0;
+
+    let daystr = mainObject['list'][0]['dt_txt'].split(' ')[0];
+    let numbers_temp =[];
+    for(let i=0; i<mainObject['list'].length;i++){
+
+        if(daystr !== mainObject['list'][i]['dt_txt'].split(' ')[0] || i===mainObject['list'].length-1 ){
+            console.log(daystr);
+            days_card[card_count].innerText=daystr.split('-')[2];
+
+            numbers_temp.sort();
+            min_card[card_count].innerText=numbers_temp[0];
+            max_card[card_count++].innerText=numbers_temp[numbers_temp.length-1];
+            numbers_temp=[];
+
+            daystr = mainObject['list'][i]['dt_txt'].split(' ')[0];
+        }else{
+            console.log(mainObject['list'][i]['main']['temp']);
+            numbers_temp.push(mainObject['list'][i]['main']['temp'])
+        }
+
+
+    }
+
 
 
 
