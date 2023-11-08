@@ -34,12 +34,14 @@ function readApi(data){
      console.log(mainObject);
 
     const DaysInWeek=["Неділя","Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота"];
-    const MonthNames = ["січень", "лютий", "березень", "квітень", "травень", "червень", "липень", "серпень", "вересень", "жовтень", "листопад", "грудень"];
+    const MonthNames = ["січня", "лютого", "березеня", "квітня", "травеня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
 
 
 
     let daystr = mainObject['list'][0]['dt_txt'].split(' ')[0];
     let numbers_temp =[];
+
+    start_widget(mainObject['list'][0]);
 
     for(let i=0; i<mainObject['list'].length;i++){
 
@@ -60,6 +62,48 @@ function readApi(data){
     }
 }
 
+function start_widget(data){
+    const clouds=document.getElementById('clouds');
+    const rains = document.querySelectorAll('.rains');
+    const light =document.getElementById('light');
+
+    if (data['clouds']['all']<20) {
+           clouds.style.width=' 150px';
+           clouds.style.height=' 150px';
+           clouds.style.top= '200px';
+
+    }else if(data['clouds']['all']>=20 && data['clouds']['all']<=70){
+        clouds.style.width=' 250px';
+        clouds.style.height=' 250px';
+        clouds.style.top= '140px';
+
+    }
+    if(data['pop']<0.25){
+        for (let i=0;i<rains.length;i++){
+            rains[i].style.display='none';
+        }
+        light.style.display='none';
+    }else if(data['pop']>=0.25 && data['pop']<=0.50){
+        light.style.display='none';
+    }
+
+    if(data['weather']['main']==="Snow" ){
+        for (let i=0;i<rains.length;i++){
+            rains[i].src='/images/snow.png';
+        }
+    }
+
+    let info=document.querySelector('.info');
+
+    info.innerHTML=`
+     <h4>Додаткова інформація</h4>
+            <span><i>Температура</i>: ${data['main']['temp']}</span>
+            <span><i>Вологість</i>: ${data['main']['humidity']}</span>
+            <span><i>Хмарність</i>: ${data['clouds']['all']}</span>
+            <span><i>Швидкість вітру</i>: ${data['wind']['speed']}</span>
+            <span><i>Імовірність опадів</i>: ${data['pop']}</span>
+    `;
+}
 function createCard(day_name,day_num,mount,max,min){
      const container_card=document.getElementById('container-card');
 
