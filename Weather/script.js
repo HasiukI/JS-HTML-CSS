@@ -19,57 +19,104 @@ function GetWeather(){
         .then(resp => {
             return resp.json();
         }).then(data=> {
-            push_item(data);
+            readApi(data);
         })
         .catch(error=>error);
 }
 let data= GetWeather();
 
+const description_img=["рвані хмари","уривчасті хмари","легкий дощ","помірний дощ","хмарно","чисте небо","кілька хмар"];
+const img_index=[0,0,0,0,0];
 
-function push_item(data){
-    const mainObject= data;
-    const DaysInWeek=["Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота","Неділя"];
-    const Weather=[];
-    console.log(mainObject);
-    const days_card =document.querySelectorAll('.days');
-    const min_card =document.querySelectorAll('.min');
-    const max_card =document.querySelectorAll('.max');
-    const days_name_card= document.querySelectorAll('.days_name');
+const img_card=document.querySelectorAll('.card_img');
+function readApi(data){
+     const mainObject= data;
+     console.log(mainObject);
 
-    let card_count=0;
+    const DaysInWeek=["Неділя","Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота"];
+    const MonthNames = ["січень", "лютий", "березень", "квітень", "травень", "червень", "липень", "серпень", "вересень", "жовтень", "листопад", "грудень"];
+
+
 
     let daystr = mainObject['list'][0]['dt_txt'].split(' ')[0];
     let numbers_temp =[];
 
-    let number_img=["рвані хмари","уривчасті хмари","легкий дощ","помірний дощ","хмарно","чисте небо","кілька хмар"];
-
     for(let i=0; i<mainObject['list'].length;i++){
 
-        console.log(mainObject['list'][i]['weather'][0]['description'])
+        numbers_temp.push(mainObject['list'][i]['main']['temp'])
+
         if(daystr !== mainObject['list'][i]['dt_txt'].split(' ')[0] || i===mainObject['list'].length-1 ){
 
-
-            days_card[card_count].innerText=daystr.split('-')[2];
-            days_name_card[card_count].innerText=DaysInWeek[new Date(Date.parse(daystr)).getDay()-1];
-
-            numbers_temp.sort();
-            min_card[card_count].innerText=numbers_temp[0];
-            max_card[card_count++].innerText=numbers_temp[numbers_temp.length-1];
-            // min_card[card_count].innerText=Math.min(numbers_temp);
-            // max_card[card_count++].innerText=Math.max(numbers_temp);
+            createCard(
+                DaysInWeek[new Date(Date.parse(daystr)).getDay()],
+                daystr.split('-')[2],
+                MonthNames[new Date(Date.parse(daystr)).getMonth()],
+                getMax(numbers_temp),
+                getMin(numbers_temp)
+              );
             numbers_temp=[];
-
             daystr = mainObject['list'][i]['dt_txt'].split(' ')[0];
-
-        }else{
-            // console.log(mainObject['list'][i]['main']['temp']);
-            numbers_temp.push(mainObject['list'][i]['main']['temp'])
         }
-
-
     }
 }
 
-function change_wither(numbers, card_img){
-    
+function createCard(day_name,day_num,mount,max,min){
+     const container_card=document.getElementById('container-card');
+
+     container_card.innerHTML+=`
+      <div class="card">
+            <div>
+                <span>${day_name}</span>
+                <div>
+                    <span>${day_num}</span>
+                    <span>${mount}</span>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>Мін:</span>
+                    <span>${min}</span>
+                </div>
+                <div>
+                    <span>Макс:</span>
+                    <span>${max}</span>
+                </div>
+            </div>
+        </div>
+     `;
 }
+
+function getMax(numbers){
+
+    let max=numbers[0];
+    for(let i=1;i<numbers.length;i++){
+        if(numbers[i]>max){
+            max=numbers[i];
+        }
+    }
+    return max;
+}
+
+function getMin(numbers){
+    let min=numbers[0];
+    for(let i=1;i<numbers.length;i++){
+        if(numbers[i]<min){
+            min=numbers[i];
+        }
+    }
+    return min;
+}
+
+
+
+
+
+
+
+
+
+// var date = new Date("2023-11-07");
+// var month = date.getMonth();
+// var monthNames = ["січень", "лютий", "березень", "квітень", "травень", "червень", "липень", "серпень", "вересень", "жовтень", "листопад", "грудень"];
+// var monthName = monthNames[month];
+// console.log(monthName); //
