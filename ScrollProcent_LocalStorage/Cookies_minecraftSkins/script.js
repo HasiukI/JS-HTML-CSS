@@ -13,6 +13,7 @@ const index=[0,0,0];
 
 
 const sound = new Audio('audio/minecraft_click.mp3');
+const music = new Audio('audio/music.mp3');
  for (let i=0;i<bt_left.length;i++){
      bt_left[i].addEventListener('click',(e)=>{
          sound.play();
@@ -146,10 +147,28 @@ function getCookie(name) {
 }
 
 (()=>{
-    // music.play();
-    index[0]=Number(getCookie('head'));
-    index[1]=Number(getCookie('body'));
-    index[2]=Number(getCookie('leg'));
+    music.play();
+
+    if(isNaN(getCookie('head'))){
+        index[0]=-1;
+    }else{
+        index[0]=Number(getCookie('head'));
+    }
+
+    if(isNaN(getCookie('body'))){
+        index[1]=-1;
+    }else{
+        index[1]=Number(getCookie('body'));
+    }
+
+    if(isNaN(getCookie('leg'))){
+        index[2]=-1;
+    }else{
+        index[2]=Number(getCookie('leg'));
+    }
+
+
+
 
     if(index[0]===-1){
         head.style.display='none';
