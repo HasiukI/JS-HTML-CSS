@@ -25,6 +25,7 @@ const index=[0,0,0];
                     head.style.display='block';
                     head.src=heads[index[0]];
                 }
+                setCookie('head',index[0]);
                 break;
             case 1:
                 index[1]++;
@@ -38,6 +39,7 @@ const index=[0,0,0];
                     body.style.display='block';
                     body.src=bodys[index[1]];
                 }
+                setCookie('body',index[1]);
                 break;
             case 2:
                 index[2]++;
@@ -51,6 +53,7 @@ const index=[0,0,0];
                     leg.style.display='block';
                     leg.src=legs[index[2]];
                 }
+                setCookie('leg',index[2]);
                 break;
         }
      });
@@ -71,6 +74,7 @@ const index=[0,0,0];
                      head.style.display='block';
                      head.src=heads[index[0]];
                  }
+                 setCookie('head',index[0]);
                  break;
              case 1:
                  index[1]--;
@@ -84,6 +88,7 @@ const index=[0,0,0];
                      body.style.display='block';
                      body.src=bodys[index[1]];
                  }
+                 setCookie('body',index[1]);
                  break;
              case 2:
                  index[2]--;
@@ -97,7 +102,68 @@ const index=[0,0,0];
                      leg.style.display='block';
                      leg.src=legs[index[2]];
                  }
+                 setCookie('leg',index[2]);
                  break;
          }
      });
  }
+
+function setCookie(name,value,options={}){
+
+    options={
+        path:'',
+        ...options
+    };
+
+    if(options.expires instanceof Date){
+        options.expires=options.expires.toUTCString();
+    }
+
+    let updateCookie = encodeURIComponent(name) + '='+
+        encodeURIComponent(value);
+
+    for(const key in options){
+        updateCookie+='; ' + key;
+        let optionValue = options[key];
+        if(optionValue !== true){
+            updateCookie+= '=' +optionValue;
+        }
+
+    }
+    document.cookie=updateCookie;
+}
+function getCookie(name) {
+    let value = `${document.cookie}`
+    let parts = value.split(`${name}=`);
+    if (parts.length === 2) {
+        return decodeURIComponent(parts.pop().split(';').shift());
+    }
+}
+
+(()=>{
+    index[0]=Number(getCookie('head'));
+    index[1]=Number(getCookie('body'));
+    index[2]=Number(getCookie('leg'));
+
+    if(index[0]===-1){
+        head.style.display='none';
+    }else{
+        head.style.display='block';
+        head.src=heads[index[0]];
+    }
+
+    if(index[1]===-1){
+        body.style.display='none';
+    }else{
+        body.style.display='block';
+        body.src=bodys[index[1]];
+    }
+
+    if(index[2]===-1){
+        leg.style.display='none';
+    }else{
+        leg.style.display='block';
+        leg.src=legs[index[2]];
+    }
+
+})()
