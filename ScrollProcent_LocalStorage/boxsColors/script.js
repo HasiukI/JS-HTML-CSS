@@ -10,8 +10,12 @@ const bodys=["images/body_skin1.png","images/body_skin2.png","images/body_skin3.
 const legs=["images/leg_skin1.png","images/leg_skin2.png","images/leg_skin3.png","images/leg_skin4.png"];
 
 const index=[0,0,0];
+
+
+const sound = new Audio('audio/minecraft_click.mp3');
  for (let i=0;i<bt_left.length;i++){
      bt_left[i].addEventListener('click',(e)=>{
+         sound.play();
         switch (i){
             case 0:
                 index[0]++;
@@ -61,6 +65,7 @@ const index=[0,0,0];
 
  for(let i=0; i<bt_right.length;i++){
      bt_right[i].addEventListener('click',(e)=>{
+         sound.play();
          switch (i){
              case 0:
                  index[0]--;
@@ -141,6 +146,7 @@ function getCookie(name) {
 }
 
 (()=>{
+    // music.play();
     index[0]=Number(getCookie('head'));
     index[1]=Number(getCookie('body'));
     index[2]=Number(getCookie('leg'));
