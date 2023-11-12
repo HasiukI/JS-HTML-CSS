@@ -25,5 +25,23 @@
 }
 .hero >img{
     width: 80%;
-    height: 100%;
+    height: 95%;
+}
+#head{
+    position: absolute;
+    width: 65%;
+    height: 29%;
+    top: 0;
+}
+#body{
+    position: absolute;
+    width: 70%;
+    height: 35%;
+    top: 28%;
+}
+#leg{
+    position: absolute;
+    width: 63%;
+    height: 37%;
+    bottom: 0;
 }
