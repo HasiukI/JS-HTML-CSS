@@ -13,6 +13,49 @@
     background-color: black;
 }
 
+.cont-bt-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+}
+.cont-bt-left >div{
+    margin-right: 10px;
+    width: 100px;
+    height: 75px;
+    background-color: #c6c6c6;
+    border: 2px solid #8b8b8b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-bt-left >div >img{
+    width: 80%;
+    height: 80%;
+}
+
+.cont-bt-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+}
+.cont-bt-right >div{
+    margin-left: 10px;
+    width: 100px;
+    height: 75px;
+    background-color: #c6c6c6;
+    border: 2px solid #8b8b8b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont-bt-right >div >img{
+    width: 80%;
+    height: 80%;
+}
 .hero{
     position: relative;
     width: 300px;
