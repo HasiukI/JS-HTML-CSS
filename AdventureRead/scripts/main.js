@@ -1,9 +1,12 @@
 // document.getElementById('cl').addEventListener('click',()=>{
 //     location.href="otherWindow/MoreBook.html";
 // })
+
+
 const header =document.querySelector('header');
 const footer =document.querySelector('footer');
 const main =document.querySelector('main');
+const navBar =document.querySelector('nav');
 const logoLetters =document.querySelectorAll('.logo-container >span');
 const logobt=document.getElementById('logoimg');
 const arrowbt=document.getElementById('arrowimg');
@@ -64,14 +67,19 @@ logobt.addEventListener('click',()=>{
                     logoLetters[i].style.display="none";
                 }
                 arrowbt.style.display="none";
-                header.style.height="10vh";
+                header.style.height="18vh";
+                header.style.display="flex";
 
                 setTimeout(()=>{
                     logobt.style.top="0";
                     logobt.style.left="0";
                     logobt.style.width="25vh";
                     logobt.style.height="8vw";
+
                     setTimeout(()=>{
+
+                         navBar.style.display='flex';
+                         navBar.style.opacity='1';
                          logobt.style.position="relative";
                          logobt.style.transform="none";
                          logobt.style.margin="5px";
