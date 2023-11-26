@@ -93,8 +93,8 @@ for(let i=0; i<allBooks.length;i++){
     if(i===8)break;
     contBooks.innerHTML+=`
      <div class="book">
-        <img class="booktap" id="book_${allBooks[i]['name']}" src="images/top_20.jpeg">
-        <span>${allBooks[i]['name']}</span>
+        <img class="booktap" id="book_${allBooks[i]['id']}" src="images/top_20.jpeg">
+        <span  class="booktap" id="span_${allBooks[i]['id']}">${allBooks[i]['name']}</span>
      </div>
     `;
 }

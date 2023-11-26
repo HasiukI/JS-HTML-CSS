@@ -4,12 +4,138 @@
     padding: 0;
 }
 body{
-    background-color: pink;
+    overflow: hidden;
 }
 .container{
     position: relative;
     width: 100%;
     height: 100vh;
     display: flex;
+    align-items: center;
+}
+
+
+/*buttons*/
+.controller {
+    display: none;
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-color: cornflowerblue;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    align-items: center;
+    justify-content:center;
+}
+.cont{
+    display: none;
+    position: absolute;
+    width: 150px;
+    height: 70px;
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    transform: translate(-50%,-50%);
+    align-items: center;
+    justify-content:center;
+}
+#ans1{
+    top: 30%;
+    left: 80%;
+}
+#ans2{
+    top: 50%;
+    left: 80%;
+}
+#beforePage{
+    top: 85%;
+    left: 42%;
+}
+#nextPage{
+    top: 85%;
+    left: 58%;
+}
+#end{
+    display: none;
+    position: absolute;
+    width: 150px;
+    height: 70px;
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    transform: translate(-50%,-50%);
+    align-items: center;
+    justify-content:center;
+    top: 80%;
+    left: 50%;
+}
+/*info*/
+
+.info{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: all 5s;
+}
+
+/*Book*/
+
+.book {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+    transform: translate(-50%,-50%);
+    background-color: transparent;
+    width: 300px;
+    height: 400px;
+    perspective: 1000px;
+    font-family: sans-serif;
+    transition: all 3s;
+}
+
+.title {
+    display: block;
+    justify-content: start;
+    align-items: start;
+    margin: 10px;
+    /*font-size: 1.5em;*/
+    height: 90%;
+    font-weight: 700;
+}
+
+.page {
+    position: absolute;
+    transform-origin: left;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.front, .back {
+    box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border: 1px solid coral;
+    /*border-radius: 0 0 0 1rem;*/
+}
+.numpage{
+    display: flex;
+    justify-content: end;
+    margin-right: 15px;
+}
+
+.front {
+    background-color: #F9D28B;
+}
+
+.back {
+    background-color: #F9D28B;
+
+    transform: rotateY(180deg);
 }
 
