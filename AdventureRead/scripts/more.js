@@ -18,15 +18,32 @@ const ans1=document.getElementById('ans1');
 const ans2=document.getElementById('ans2');
 const nextPage =document.getElementById('nextPage');
 const end=document.getElementById('end');
-//
+//other
 const mainBook =document.querySelector('.book');
 const infoBook=document.querySelector('.info');
+const reviewBook=document.getElementById('review');
+const inpRew=document.getElementById('inpRew');
 let indexpage=0;
 let the_end=false;
+
+(()=>{
+infoBook.innerHTML+=`
+        <h2>${copyBook.name}</h2><br>
+        <h3>Author: ${copyBook.author}</h3><br>
+        <h4>Rainting: ${copyBook.raiting}/10</h4><br>
+        <p><b>Опис: </b>${copyBook.opus} </p><br>
+       <button id="startread">start read</button>`;
+})();
+
 document.getElementById('startread').addEventListener('click',()=>{
     infoBook.style.left="2000px";
     nextPage.style.display='flex';
+    reviewBook.style.top="2000px";
 
+    setTimeout(()=>{
+        infoBook.style.display="none";
+        reviewBook.style.display="none";
+    },1000)
     mainBook.style.left="50%";
     copyBook=currentBook;
     copyBook=copyBook.history;
@@ -72,6 +89,7 @@ nextPage.addEventListener('click',()=>{
         }
         else{
             if(indexpage+1===pages.length){
+
                 ans1.style.display="block"
                 ans1.innerText=copyBook.answer1.answer;
                 ans2.style.display="block"
@@ -93,29 +111,53 @@ end.addEventListener('click',()=>{
         },i*250);
     }
     setTimeout(()=>{
-        infoBook.style.left="50%";
-        mainBook.style.left="20%";
 
-        mainBook.innerHTML=" ";
-        copyBook=currentBook;
-        createBook();
-        indexpage=0;
-        the_end=false;
-    },2000);
+        infoBook.style.display="block";
+        infoBook.style.left="2000px";
+        reviewBook.style.display="flex";
+        reviewBook.style.top="2000px";
+
+        setTimeout(()=>{
+            infoBook.style.left="58%";
+            mainBook.style.left="20%";
+            reviewBook.style.top="80%";
+            mainBook.innerHTML=" ";
+            copyBook=currentBook;
+            createBook();
+            indexpage=0;
+            the_end=false;
+        },200)
+
+
+
+    },1600);
 
 })
+inpRew.addEventListener('keyup',(e)=>{
+    if(e.key==="Enter"){
+        createReview(getCookie('Name'),inpRew.value);
+    }
+});
+function createReview(who,text){
+    let date = new Date();
 
-
+    document.getElementById('reviewPeople').innerHTML+=`
+     <div class="peoplesay">
+                <span><b>${who}</b> <i style="font-size: 12px">${date.toDateString()}</i></span>
+                <p>${text}</p>
+            </div>
+    `;
+}
 function createBook(){
     mainBook.innerHTML+=`
 <div class="page" style="z-index: 100">
     <div class="front">
-        <div class="title" >
-            <p>${copyBook['name']}</p>
+        <div class="title">
+            <img src="${copyBook['imagesrc']}">
+            <p style="font-size: 24px">${copyBook['name']}</p>
+            
         </div>
-        <div class="numpage">
-            <p>1</p>
-        </div>
+     
     </div>
     <div class="back">
     </div>
@@ -127,7 +169,7 @@ function createBook(){
 }
  createBook();
 function createPage(text){
-    if(text.length>835){
+    if(text.length>1100){
         let strings = splitString(text);
         let index= strings.length;
         for(let i=0;i<strings.length;i+=2){
@@ -139,7 +181,7 @@ function createPage(text){
                                 <p>${strings[i]}</p>
                             </div>
                             <div class="numpage">
-                                <p>1</p>
+                                <p>${indexpage}</p>
                             </div>
                         </div>
                         <div class="back"> 
@@ -147,7 +189,7 @@ function createPage(text){
                                 <p>${strings[i+1]}</p>
                             </div>
                             <div class="numpage">
-                                <p>2</p>
+                                <p>${indexpage+1}</p>
                         </div>
                         </div>
                     </div>`;
@@ -159,7 +201,7 @@ function createPage(text){
                             <p>${strings[i]}</p>
                         </div>
                         <div class="numpage">
-                            <p>1</p>
+                            <p>${indexpage}</p>
                         </div>
                     </div>
                     <div class="back"> 
@@ -167,7 +209,7 @@ function createPage(text){
                             <p>${strings[i+1]}</p>
                         </div>
                         <div class="numpage">
-                            <p>2</p>
+                            <p>${indexpage}</p>
                     </div>
                     </div>
                 </div>`;
@@ -182,7 +224,7 @@ function createPage(text){
                     <p>${text}</p>
                 </div>
                 <div class="numpage">
-                    <p>1</p>
+                    <p>${indexpage+1}</p>
                 </div>
             </div>
             <div class="back"> 
@@ -197,10 +239,18 @@ function splitString(str) {
     let result = [];
 
     if (typeof str === "string" ) {
-        for (let i = 0; i < str.length; i += 835) {
-            result.push(str.substring(i, i + 835));
+        for (let i = 0; i < str.length; i += 800) {
+            result.push(str.substring(i, i + 800));
         }
     }
     return result;
 }
+function getCookie(name) {
+    let value = `${document.cookie}`
+    let parts = value.split(`${name}=`);
+    if (parts.length === 2) {
+        return decodeURIComponent(parts.pop().split(';').shift());
+    }
+}
+
 

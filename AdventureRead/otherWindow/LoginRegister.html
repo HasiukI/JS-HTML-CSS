@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../styles/LoginRegister.css">
+
+</head>
+<body>
+<div class="lines">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <h2>Login</h2>
+                <input id="loganame" placeholder="Name" type="text" name="text" class="input">
+                <input id="logapass" placeholder="Password" type="password" name="text" class="input">
+                <button id="bt_login">Login</button>
+                <p>Ще не бували у нас <span id="routeToRegister">зареєструйтесь</span> для того щоб мати усі додатки на сайті</p>
+            </div>
+            <div class="card-back">
+                <h2>Register</h2>
+                <input id="reganame" placeholder="Name" type="text" name="text" class="input">
+                <input id="regapass" placeholder="Password" type="password" name="text" class="input">
+                <input id="regapass2" placeholder="Return password" type="password" name="text" class="input">
+                <button id="bt_reg">Register</button>
+                <p>Якщо ви вже є у нас тоді <span id="routeToLogin">вернутись назад</span></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="../scripts/LoginRegister.js"></script>
+</body>
+</html>

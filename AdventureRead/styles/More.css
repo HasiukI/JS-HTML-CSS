@@ -4,7 +4,7 @@
     padding: 0;
 }
 body{
-    overflow: hidden;
+    overflow-x: hidden;
 }
 .container{
     position: relative;
@@ -16,44 +16,178 @@ body{
 
 
 /*buttons*/
-.controller {
-    display: none;
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    background-color: cornflowerblue;
-    border-radius: 50%;
-    transform: translate(-50%,-50%);
+#startread, #end {
+    --😀: #644dff;
+    --😀😀: #4836bb;
+    --😀😀😀: #654dff63;
+    cursor: pointer;
+    width: 184px;
+    height: 48px;
+    display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.125em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #fff;
+    background: var(--😀);
+    border: 2px solid var(--😀😀);
+    border-radius: .75rem;
+    box-shadow: 0 8px 0 var(--😀😀);
+    transform: skew(-10deg);
+    transition: all .1s ease;
+    filter: drop-shadow(0 15px 20px var(--😀😀😀));
 }
-.cont{
-    display: none;
+
+#startread:active{
+    letter-spacing: 0px;
+    transform: skew(-10deg) translateY(8px);
+    box-shadow: 0 0 0 var(--😀😀😀);
+}
+#ans1, #ans2 {
+    font-size: 18px;
+    color: #313131;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
     position: absolute;
-    width: 150px;
-    height: 70px;
-    background-color: cornflowerblue;
-    border-radius: 10px;
     transform: translate(-50%,-50%);
-    align-items: center;
-    justify-content:center;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
 }
+
+#ans1:focus,
+#ans1:hover,
+#ans2:focus,
+#ans2:hover{
+    color: #313131;
+}
+
+#ans1:focus:after,
+#ans1:hover:after,
+#ans2:focus:after,
+#ans2:hover:after{
+    width: 100%;
+    left: 0%;
+}
+
+#ans1:after,
+#ans2:after{
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #313131;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+}
+
+
+.cta {
+    position: absolute;
+    top: 80%;
+    left: 43%;
+
+    display: none;
+    padding: 11px 33px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px;
+    color: white;
+    background: #6225E6;
+    transition: 1s;
+    box-shadow: 6px 6px 0 black;
+    transform: skewX(-15deg);
+    border: none;
+}
+
+.cta:focus {
+    outline: none;
+}
+
+.cta:hover {
+    transition: 0.5s;
+    box-shadow: 10px 10px 0 #FBC638;
+}
+
+.cta .second {
+    transition: 0.5s;
+    margin-right: 0px;
+}
+
+.cta:hover  .second {
+    transition: 0.5s;
+    margin-right: 45px;
+}
+
+.span {
+    transform: skewX(15deg)
+}
+
+.second {
+    width: 20px;
+    margin-left: 30px;
+    position: relative;
+    top: 12%;
+}
+
+.one {
+    transition: 0.4s;
+    transform: translateX(-60%);
+}
+
+.two {
+    transition: 0.5s;
+    transform: translateX(-30%);
+}
+
+.cta:hover .three {
+    animation: color_anim 1s infinite 0.2s;
+}
+
+.cta:hover .one {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.6s;
+}
+
+.cta:hover .two {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.4s;
+}
+
+@keyframes color_anim {
+    0% {
+        fill: white;
+    }
+
+    50% {
+        fill: #FBC638;
+    }
+
+    100% {
+        fill: white;
+    }
+}
+
 #ans1{
     top: 30%;
     left: 80%;
 }
 #ans2{
-    top: 50%;
+    top: 40%;
     left: 80%;
 }
-#beforePage{
-    top: 85%;
-    left: 42%;
-}
-#nextPage{
-    top: 85%;
-    left: 58%;
-}
+
+
 #end{
     display: none;
     position: absolute;
@@ -71,9 +205,15 @@ body{
 
 .info{
     position: absolute;
-    left: 50%;
+    left: 58%;
+    width: 500px;
     transform: translate(-50%,-50%);
     transition: all 5s;
+    border-radius: 50px;
+    background: #f8f8f8;
+    box-shadow: 20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
+    padding: 20px;
 }
 
 /*Book*/
@@ -84,11 +224,12 @@ body{
     left: 20%;
     transform: translate(-50%,-50%);
     background-color: transparent;
-    width: 300px;
-    height: 400px;
+    width: 400px;
+    height: 450px;
     perspective: 1000px;
     font-family: sans-serif;
     transition: all 3s;
+    font-size: 14px;
 }
 
 .title {
@@ -120,8 +261,12 @@ body{
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border: 1px solid coral;
+    border: 3px solid #907E6F;
     /*border-radius: 0 0 0 1rem;*/
+}
+.title >img{
+    width: 100%;
+    height: 80%;
 }
 .numpage{
     display: flex;
@@ -130,12 +275,73 @@ body{
 }
 
 .front {
-    background-color: #F9D28B;
+    background: #F7DA7F;
+    background: radial-gradient(at center, #F7DA7F, #FCEFDC);
 }
 
 .back {
-    background-color: #F9D28B;
+    background: #F7DA7F;
+    background: radial-gradient(at center, #F7DA7F, #FCEFDC);
 
     transform: rotateY(180deg);
+}
+/* Відгуки*/
+
+#review{
+    position: absolute;
+    width: 97%;
+    border-radius: 50px;
+    background: #f8f8f8;
+    box-shadow: 20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
+    top: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: start;
+    transition: all 1s;
+    margin: 20px;
+    padding: 20px;
+}
+#reviewPeople{
+    width: 90%;
+}
+
+.input {
+    width: 500px;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #cecece;
+    box-shadow: 20px 20px 60px #c5c5c5,
+    -20px -20px 60px #ffffff;
+    transition: 0.3s;
+    margin: 20px 0 20px 10px;
+}
+
+.input:focus {
+    outline-color: #e8e8e8;
+    background: #e8e8e8;
+    box-shadow: inset 20px 20px 60px #c5c5c5,
+    inset -20px -20px 60px #ffffff;
+    transition: 0.3s;
+}
+
+.peoplesay{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    margin: 10px;
+    border-radius:10px ;
+
+}
+.peoplesay >span{
+   font-size: 1.5em;
+}
+#reviewPeople >div:nth-child(2n){
+    background-color: #d9d7d7;
+}
+#reviewPeople >div:nth-child(2n+1){
+    background-color: #efeeee;
 }
 
